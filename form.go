@@ -209,8 +209,8 @@ func (f *Form) AddPasswordField(label, value string, fieldWidth int, mask rune, 
 func (f *Form) AddDropDown(label string, options []string, initialOption int, selected func(option string, optionIndex int)) *Form {
 	f.items = append(f.items, NewDropDown().
 		SetLabel(label).
-		SetCurrentOption(initialOption).
-		SetOptions(options, selected))
+		SetOptions(options, selected).
+		SetCurrentOption(initialOption))
 	return f
 }
 
@@ -308,6 +308,12 @@ func (f *Form) AddFormItem(item FormItem) *Form {
 // not included.
 func (f *Form) GetFormItem(index int) FormItem {
 	return f.items[index]
+}
+
+// GetFormItems returns a slice of all form elements exluding Buttons.
+// Elements are returned in the order they were added.
+func (f *Form) GetFormItems() []FormItem {
+	return f.items
 }
 
 // RemoveFormItem removes the form element at the given position, starting with
