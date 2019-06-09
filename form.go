@@ -334,6 +334,18 @@ func (f *Form) GetFormItemIndex(label string) int {
 	return -1
 }
 
+// Returns the last FormItem in form.items, or nil if not items exist
+// Buttons are not considered and thus wil lnever be returned.
+// Used to more easily access just-added form items to allow setting
+// their properties that cannot be set when calling the relevant
+// Add<type>Field() method.
+func (f *Form) GetLastFormItem() FormItem {
+	if len(f.items) == 0 {
+		return nil
+	}
+	return f.items[len(f.items)-1]
+}
+
 // SetCancelFunc sets a handler which is called when the user hits the Escape
 // key.
 func (f *Form) SetCancelFunc(callback func()) *Form {
